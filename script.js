@@ -1,5 +1,5 @@
-let latitude = 0;// Create the variable for latitude
-let longitude = 0;// Create the variable for longitude
+let lat = 0;// Create the variable for latitude
+let lon = 0;// Create the variable for longitude
 
 window.onload = function() { //when page loads
     const date = new Date();
@@ -20,10 +20,13 @@ function success(position){
 	latitude = position.coords.latitude;
 	longitude = position.coords.longitude;
 	// Print out the latitude and longitude to see if it works!
-    console.log(latitude, longitude)
+    console.log(latitude, longitude);
 }
+
 const btn = document.getElementById('getWeatherBtn');
 btn.addEventListener("click", function(){
+
+  //---------- weather ------------//
 
   const xhr = new XMLHttpRequest(); //defines the xmlhttp object
   xhr.open("GET",`http://localhost:3000/weather/${lat}/${lon}`); // open a get request to the website
@@ -31,11 +34,11 @@ btn.addEventListener("click", function(){
 
   xhr.onload = function(){ //once we received response
     //body will look like this: {temp: 53}, {temp: 53}
-  const body = JSON.parse(xhr.responseText) //set body to the responses
-  let temperature = body.temperature //parse temp from body response
-  let weatherstatus = body.weatherstatus //parse weather status from body response
-  document.getElementById("temperature").innerHTML = `Temperature: ${temperature} F`;
-  document.getElementById('weatherStatus').innerHTML = `Weather Status: ${weatherstatus}`;
+  const body = JSON.parse(xhr.responseText);//set body to the responses
+  let temperature = body.temp; //parse temp from body response
+  let weatherStatus = body.weatherStatus; //parse weather status from body response
+  document.getElementById("temperature").innerHTML = `Temperature: ${temperature}` + "\u00b0F";
+  document.getElementById('weatherStatus').innerHTML = `weatherStatus: ${weatherStatus}`;
 
 }
 
@@ -45,8 +48,8 @@ const xhr2 = new XMLHttpRequest(); //defines the xmlhttp object
   xhr2.send(); 
 
   xhr2.onload = function(){
-    const body = JSON.parse(xhr.responseText) 
-    let forecast = body.forecast;
+    const body = JSON.parse(xhr2.responseText);
+    let forecast = body;
     var forecastElements = document.getElementsByClassName("forecast");
     //forecast = [{mon: 53},{tues: 63}, {weds: 52}]
     for (let i =0; i<forecast.length; i++){

@@ -24,7 +24,7 @@ app.get('/weather/:lat/:lon', (req, res) => {
 		
 		body = JSON.parse(body); 
 		let weatherStatus = body.weather[0].main ;
-		res.send({"temp" : body.main.temp, "weatherStatus" : weatherStatus});
+		res.send({"temperature" : body.main.temp, "weatherStatus" : weatherStatus});
 		console.log(body.main.temp); // Printing body
 	}
 	});
